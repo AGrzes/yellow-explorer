@@ -1,1 +1,1 @@
-const hello = require('./hello')
+const app = require('./app')
