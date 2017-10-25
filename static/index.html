@@ -1,17 +1,22 @@
 <!doctype html>
 <html lang=en ng-app="yellow-explorer">
+
 <head>
-<meta charset=utf-8>
-<title>Yellow Explorer</title>
-<script src="bundle.js"></script>
+  <meta charset=utf-8>
+  <title>Yellow Explorer</title>
+  <script src="bundle.js"></script>
 </head>
+
 <body>
-<p>Explorer Content {{'Hello Angular!'}}</p>
-<div ng-controller="config">
-  {{ config | json }}
-</div>
-<div ng-controller="data">
-  {{ data | json }}
-</div>
+  <div class=container>
+    <p>Explorer Content {{'Hello Angular!'}}</p>
+    <div ng-controller="config">
+      {{ config | json }}
+    </div>
+    <div ng-controller="data">
+      {{ data | json }}
+    </div>
+  </div>
 </body>
+
 </html>
