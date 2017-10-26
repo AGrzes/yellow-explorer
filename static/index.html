@@ -8,11 +8,15 @@
 </head>
 
 <body>
-  <div class=container>
+  <div class="container" ng-controller="config">
+    <nav class="navbar navbar-default">
+      <ul class="nav navbar-nav">
+        <li ng-repeat="menuItem in config.menu">
+          <a href="#">{{menuItem.name}}</a>
+        </li>
+      </ul>
+    </nav>
     <p>Explorer Content {{'Hello Angular!'}}</p>
-    <div ng-controller="config">
-      {{ config | json }}
-    </div>
     <div ng-controller="data">
       {{ data | json }}
     </div>
