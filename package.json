@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/AGrzes/yellow-explorer#readme",
   "dependencies": {
+    "@uirouter/angularjs": "^1.0.10",
     "angular": "^1.6.6",
     "bootstrap": "^3.3.7",
     "express": "^4.16.2",
