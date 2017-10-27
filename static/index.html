@@ -11,8 +11,14 @@
   <div class="container" ng-controller="config">
     <nav class="navbar navbar-default">
       <ul class="nav navbar-nav">
-        <li ng-repeat="menuItem in config.menu">
-          <a href="#">{{menuItem.name}}</a>
+        <li ng-repeat="menuItem in config.menu" ng-class="{dropdown:menuItem.submenu}">
+          <a href="#" ng-if="!menuItem.submenu">{{menuItem.name}}</a>
+          <a href="#" ng-if="menuItem.submenu" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{menuItem.name}} <span class="caret"></span></a>
+          <ul ng-if="menuItem.submenu" class="dropdown-menu">
+            <li ng-repeat="submenuItem in menuItem.submenu">
+              <a href="#">{{submenuItem.name}}</a>
+            </li>
+          </ul>
         </li>
       </ul>
     </nav>
