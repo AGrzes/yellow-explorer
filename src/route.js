@@ -1,4 +1,5 @@
 const angular = require('angular')
+const Handlebars = require('handlebars/dist/handlebars')
 angular.module('yellow-explorer')
 
 .config(function($stateProvider,$urlRouterProvider) {
@@ -26,12 +27,17 @@ angular.module('yellow-explorer')
       const view = $stateParams.view
       if (view) {
         $scope.items = data.byType[view.selector.selector]
-      }
-
+        $scope.handlebarsTemplate = Handlebars.compile(view.template.template)
+      }     
     },
-    template:'<div><ul><li ng-repeat="item in items">{{item.name}}</li></ul></div>'
+    template:'<div><ul><li ng-repeat="item in items" ng-bind-html="item|handlebars:handlebarsTemplate"></li></ul></div>'
   });
   $urlRouterProvider.otherwise('/');
   console.log('Test')
 })
  
+.filter('handlebars', function($sce) {
+  return function(data, template) {
+    return $sce.trustAsHtml(template(data))
+  };
+})
