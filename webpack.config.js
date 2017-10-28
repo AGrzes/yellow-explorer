@@ -26,6 +26,9 @@ module.exports = {
       ]
     }]
   },
+  watchOptions: {
+    poll: true
+  },
   plugins: [
       new webpack.ProvidePlugin({
         $: 'jquery',
