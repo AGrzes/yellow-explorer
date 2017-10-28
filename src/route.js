@@ -10,14 +10,27 @@ angular.module('yellow-explorer')
       config:(configService)=>configService,
       data:(dataService)=>dataService
     },
+    controller: function($scope, config,data) {
+      $scope.config=config
+      $scope.data=data
+    }, 
     abstract: true,
     template: '<ui-view/>'
   });
   $stateProvider.state({
     name: 'explorer.view',
-    url:'/view/{viewName}',
-    template:'<div>Test{{viewName}}</div>'
+    params:{
+      view: null
+    },resolve: {
+      view:($stateParams)=>$stateParams.view
+    },
+    url:'/view/',
+    controller: function($scope,view){
+      $scope.view=view
+    },
+    template:'<div>{{view.selector.selector}}</div>'
   });
-  $urlRouterProvider.otherwise('/view/aaa');
+  $urlRouterProvider.otherwise('/');
   console.log('Test')
 })
+ 
