@@ -12,7 +12,6 @@ angular.module('yellow-explorer')
     },
     controller: function($scope, config,data) {
       $scope.config=config
-      $scope.data=data
     }, 
     abstract: true,
     template: '<ui-view/>'
@@ -21,14 +20,16 @@ angular.module('yellow-explorer')
     name: 'explorer.view',
     params:{
       view: null
-    },resolve: {
-      view:($stateParams)=>$stateParams.view
     },
     url:'/view/',
-    controller: function($scope,view){
-      $scope.view=view
+    controller: function ($scope, $stateParams, data) {
+      const view = $stateParams.view
+      if (view) {
+        $scope.items = data.byType[view.selector.selector]
+      }
+
     },
-    template:'<div>{{view.selector.selector}}</div>'
+    template:'<div><ul><li ng-repeat="item in items">{{item.name}}</li></ul></div>'
   });
   $urlRouterProvider.otherwise('/');
   console.log('Test')
