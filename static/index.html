@@ -8,14 +8,21 @@
 </head>
 
 <body>
-  <div class=container>
-    <p>Explorer Content {{'Hello Angular!'}}</p>
-    <div ng-controller="config">
-      {{ config | json }}
-    </div>
-    <div ng-controller="data">
-      {{ data | json }}
-    </div>
+  <div class="container" ng-controller="config">
+    <nav class="navbar navbar-default">
+      <ul class="nav navbar-nav">
+        <li ng-repeat="menuItem in config.menu" ng-class="{dropdown:menuItem.submenu}">
+          <a ui-sref="explorer.view({view: menuItem.view})" ng-if="!menuItem.submenu">{{menuItem.name}}</a>
+          <a href="#" ng-if="menuItem.submenu" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{menuItem.name}} <span class="caret"></span></a>
+          <ul ng-if="menuItem.submenu" class="dropdown-menu">
+            <li ng-repeat="submenuItem in menuItem.submenu">
+              <a ui-sref="explorer.view({view: submenuItem.view})">{{submenuItem.name}}</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <ui-view></ui-view>
   </div>
 </body>
 
