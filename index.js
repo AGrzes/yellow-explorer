@@ -17,11 +17,15 @@ const loadTemplates = (menuItem)=>{
 }
 _.forEach(config.menu,loadTemplates)
 const data = yaml.load(fs.readFileSync(process.argv[3],'UTF-8'))
+const metadata = yaml.load(fs.readFileSync(process.argv[4],'UTF-8'))
 app.get('/config',(req,res)=>{
   res.send(config)
 })
 app.get('/data',(req,res)=>{
   res.send(data)
+})
+app.get('/metadata',(req,res)=>{
+  res.send(metadata)
 })
 app.use(express.static('static'))
 app.use(express.static('generated'))

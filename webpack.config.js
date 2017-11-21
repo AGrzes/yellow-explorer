@@ -36,5 +36,10 @@ module.exports = {
         'window.jQuery': 'jquery',
         Popper: ['popper.js', 'default']
       })
-  ]
+  ],
+  resolve: {
+    alias: {
+       handlebars: 'handlebars/dist/handlebars.min.js'
+    }
+  }
 };
