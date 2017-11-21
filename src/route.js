@@ -1,5 +1,5 @@
 const angular = require('angular')
-const Handlebars = require('handlebars/dist/handlebars')
+const Handlebars = require('handlebars')
 angular.module('yellow-explorer')
 
 .config(function($stateProvider,$urlRouterProvider) {
