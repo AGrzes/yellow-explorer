@@ -1,14 +1,10 @@
 const angular = require('angular')
 const _ = require('lodash')
+const yellowData = require('yellow/src/data/main')
 angular.module('yellow-explorer')
 
-.factory('dataService',($http)=>{
-  return $http.get('/data').then((response)=> {    
-    const data = response.data
-    data.byType = _.groupBy(data,'type')
-    return data
-  }
-  )
+.factory('dataService',($http,metadataService)=>{
+  return $http.get('/data').then((response) => metadataService.then((metadata) => new yellowData.Data(response.data, metadata)))
 })
 
 .controller('data',($scope,dataService)=>{
