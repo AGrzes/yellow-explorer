@@ -27,6 +27,7 @@
     "handlebars": "^4.0.11",
     "jquery": "^3.2.1",
     "js-yaml": "^3.10.0",
+    "vue": "^2.5.8",
     "yellow": "github:AGrzes/yellow#develop"
   },
   "devDependencies": {
