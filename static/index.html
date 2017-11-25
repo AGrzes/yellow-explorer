@@ -4,7 +4,6 @@
 <head>
   <meta charset=utf-8>
   <title>Yellow Explorer</title>
-  <script src="bundle.js"></script>
 </head>
 
 <body>
@@ -22,8 +21,9 @@
         </li>
       </ul>
     </nav>
-    <ui-view></ui-view>
+    <ui-view>{{ message }}</ui-view>
   </div>
+  <script src="bundle.js"></script>
 </body>
 
 </html>
