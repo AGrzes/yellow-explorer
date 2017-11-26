@@ -1,14 +1,5 @@
-const angular = require('angular')
+const axios = require('axios')
 const _ = require('lodash')
 const yellowData = require('yellow/src/data/main')
-angular.module('yellow-explorer')
-
-.factory('dataService',($http,metadataService)=>{
-  return $http.get('/data').then((response) => metadataService.then((metadata) => new yellowData.Data(response.data, metadata)))
-})
-
-.controller('data',($scope,dataService)=>{
-  dataService.then((data)=>{
-    $scope.data = data
-  })
-})
+const metadataRequest = require('./metadata')
+module.exports = axios.get('/data').then((response) => metadataRequest.then((metadata) => new yellowData.Data(response.data, metadata)))

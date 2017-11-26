@@ -29,6 +29,9 @@ app.get('/metadata',(req,res)=>{
 })
 app.use(express.static('static'))
 app.use(express.static('generated'))
+app.get('*',(req,res)=>{
+  res.sendFile(`${__dirname}/static/index.html`)
+})
 
 app.listen(httpPort, function () {
   console.log(`Example app listening on port ${httpPort}!`)

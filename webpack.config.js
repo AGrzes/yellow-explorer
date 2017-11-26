@@ -39,7 +39,8 @@ module.exports = {
   ],
   resolve: {
     alias: {
-       handlebars: 'handlebars/dist/handlebars.min.js'
+       handlebars: 'handlebars/dist/handlebars.min.js',
+       'vue$': 'vue/dist/vue.esm.js' 
     }
   }
 };

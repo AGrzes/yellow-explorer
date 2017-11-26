@@ -1,4 +1,24 @@
-const angular = require('angular')
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import configPromise from './config'
+import _ from 'lodash'
+Vue.use(VueRouter)
+
+export default configPromise.then((config)=>{
+  const menuRoutes = _.map(config.menu,(item)=>({
+    name:item.name,
+    path:`/view/${item.name}`,
+    component:{
+      template:`<p>${item.view.type}</p>`}
+  }))
+  const router = new VueRouter({
+    mode: 'history',
+    routes: menuRoutes
+  })
+  return router
+})
+
+/*const angular = require('angular')
 const Handlebars = require('handlebars')
 angular.module('yellow-explorer')
 
@@ -40,4 +60,4 @@ angular.module('yellow-explorer')
   return function(data, template) {
     return $sce.trustAsHtml(template(data))
   };
-})
+})*/
