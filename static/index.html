@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang=en ng-app="yellow-explorer">
+<html lang=en>
 
 <head>
   <meta charset=utf-8>
@@ -7,9 +7,9 @@
 </head>
 
 <body>
-  <div class="container" ng-controller="config">
-    <main-menu :menu="config.menu"/>
-    <ui-view>{{ config.type }}</ui-view>
+  <div class="container">
+    <main-menu :menu="config.menu"></main-menu>
+    <router-view></router-view>
   </div>
   <script src="/bundle.js"></script>
 </body>
