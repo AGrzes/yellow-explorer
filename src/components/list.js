@@ -10,9 +10,14 @@ const determineItemWrapper = (style) => {
 Vue.component('yellow-list', {
   render: function (createElement) {
     const wrapper = determineWrapper(this.config.style)
-    const itemWrapper = determineItemWrapper(this.config.style)
+    const itemWrapper = `yellow-${_.kebabCase(this.config.item.type)}`
     return createElement(
-      wrapper,_.map(this.items,(item)=>createElement(itemWrapper,item))
+      wrapper,_.map(this.items,(item)=>createElement(itemWrapper,{
+        props: {
+          config: this.config.item,
+          data: item
+        }
+      }))
     )
   },
   props: {
