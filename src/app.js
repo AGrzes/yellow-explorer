@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import routerPromise from './route'
 import './menu'
+import './declarativeView'
+import './components'
 import configPromise from './config'
 import metadataPromise from './metadata'
 import dataPromise from './data'

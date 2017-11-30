@@ -9,7 +9,10 @@ export default configPromise.then((config)=>{
     name:item.name,
     path:`/view/${item.name}`,
     component:{
-      template:`<p>${item.view.type}</p>`}
+      render: function (createElement) {
+        return createElement(`yellow-${_.kebabCase(item.view.type)}`,{props:{config:item.view}})
+      }
+    }
   }))
   const router = new VueRouter({
     mode: 'history',
