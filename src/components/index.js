@@ -1,1 +1,3 @@
-export * from './list'
+import './list'
+import './card'
+
