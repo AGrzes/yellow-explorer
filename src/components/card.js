@@ -14,7 +14,11 @@ Vue.component('yellow-card', {
         class: {
           "panel-heading": true
         }
-      }, _.map(this.slots.header, createChild)))
+      },[createElement('h3', {
+        class: {
+          "panel-title": true
+        }
+      },  _.map(this.slots.header, createChild))]))
     }
     if (this.slots.content) {
       elements.push(createElement('div', {
