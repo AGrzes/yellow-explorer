@@ -3,31 +3,25 @@ import _ from 'lodash'
 Vue.component('yellow-card', {
   render: function (createElement) {
     const elements = []
+    const createChild = (element) => createElement(`yellow-${_.kebabCase(element.type)}`, {
+      props: {
+        config: element,
+        data: this.data
+      }
+    })
     if (this.slots.header) {
       elements.push(createElement('div', {
         class: {
           "panel-heading": true
         }
-      }, _.map(this.slots.header, (element) => createElement(`yellow-${_.kebabCase(element.type)}`,{
-        props: {
-          config: element,
-          data: this.data
-        }
-      })))
-      )
+      }, _.map(this.slots.header, createChild)))
     }
     if (this.slots.content) {
       elements.push(createElement('div', {
         class: {
           "panel-body": true
         }
-      }, _.map(this.slots.content, (element) => createElement(`yellow-${_.kebabCase(element.type)}`,{
-        props: {
-          config: element,
-          data: this.data
-        }
-      })))
-      )
+      }, _.map(this.slots.content, createChild)))
     }
     return createElement(
       'div', {
