@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import _ from 'lodash'
 import {markdown} from 'markdown'
+import Handlebars from 'handlebars'
 Vue.component('yellow-field', {
   render: function (createElement) {
     return createElement('span',{domProps: {
@@ -20,14 +21,19 @@ Vue.component('yellow-field', {
   computed: {
     value: function () {
       const raw = this.data[this.config.field]
-      switch(this.config.format){
-        case 'markdown': 
-        return markdown.toHTML(raw)
-        case 'string':
-        default:
-        return raw
+      let formatted = ((value,format)=>{
+        switch(this.config.format){
+          case 'markdown': 
+          return markdown.toHTML(raw)
+          case 'string':
+          default:
+          return raw
+        }
+      })(raw,this.config.format)
+      if (this.config.pattern){
+        return Handlebars.compile(this.config.pattern)(formatted)
       }
-       
+      return formatted 
     }
   }
 })
