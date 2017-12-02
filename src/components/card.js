@@ -18,7 +18,7 @@ Vue.component('yellow-card', {
         class: {
           "panel-title": true
         }
-      },  _.map(this.slots.header, createChild))]))
+      },  _.flatMap(this.slots.header, (element)=>[createChild(element),' ']))]))
     }
     if (this.slots.content) {
       elements.push(createElement('div', {
