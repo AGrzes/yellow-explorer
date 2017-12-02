@@ -27,6 +27,9 @@ dataPromise.then((data)=>{
         const filter = new Function('any','return '+this.config.list.selector.replace(/this/g,'any'))
         items = _.filter(data.model,filter)
       }
+      if (this.config.list.order){
+        items = _.orderBy(items,this.config.list.order.field)
+      }
       return {
         items:items
       }
