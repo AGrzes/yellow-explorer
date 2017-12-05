@@ -2,6 +2,7 @@ import Vue from 'vue'
 import _ from 'lodash'
 import {markdown} from 'markdown'
 import Handlebars from 'handlebars'
+import moment from 'moment'
 Vue.component('yellow-field', {
   render: function (createElement) {
     if (this.value){
@@ -30,6 +31,8 @@ Vue.component('yellow-field', {
           switch(this.config.format){
             case 'markdown': 
             return markdown.toHTML(raw)
+            case 'date':
+              return moment(raw).format(this.config.dateFormat)
             case 'string':
             default:
             return raw
