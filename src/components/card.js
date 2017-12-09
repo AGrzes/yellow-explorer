@@ -4,6 +4,9 @@ Vue.component('yellow-card', {
   render: function (createElement) {
     const elements = []
     const createChild = (element) => createElement(`yellow-${_.kebabCase(element.type)}`, {
+      class: {
+        "pull-right": _.includes(element.hint,'right')
+      },
       props: {
         config: element,
         data: this.data
