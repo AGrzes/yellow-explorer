@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import _ from 'lodash'
+import './card.css'
 Vue.component('yellow-card', {
   render: function (createElement) {
     const elements = []
@@ -24,19 +25,28 @@ Vue.component('yellow-card', {
       },  _.flatMap(this.slots.header, (element)=>[createChild(element),' ']))]))
     }
     if (this.slots.content) {
-      elements.push(createElement('div', {
+      elements.push(createElement('transition',{props:{name:'fade'}},[this.active?createElement('div', {
         class: {
           "panel-body": true
         }
-      }, _.map(this.slots.content, createChild)))
+      }, _.map(this.slots.content, createChild)):null]))
     }
     return createElement(
       'div', {
         class: {
-          panel: true, "panel-default": true
+          panel: true, 
+          "panel-default": true
+        },
+        on: {
+          click: this.toggle
         }
       }, elements
     )
+  },
+  methods: {
+    toggle(){
+      this.active = !this.active
+    }
   },
   props: {
     config: {
@@ -47,6 +57,11 @@ Vue.component('yellow-card', {
       type: Object,
       required: true
     }
+  },
+  data(){
+    return {
+      active :!_.includes(this.config.hint,'collapse')
+    } 
   },
   computed: {
     slots: function () {
