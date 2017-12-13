@@ -38,7 +38,7 @@ Vue.component('yellow-card', {
           "panel-default": true
         },
         on: {
-          click: this.toggle
+          click: _.includes(this.config.hint,'collapse')?this.toggle:null
         }
       }, elements
     )
