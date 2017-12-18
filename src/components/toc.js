@@ -5,12 +5,12 @@ Vue.component('yellow-toc', {
     const wrapper = 'ul'
     const itemWrapper = `yellow-${_.kebabCase(this.config.item.type)}`
     return createElement(
-      wrapper,_.map(this.items,(item)=>createElement(itemWrapper,{
+      wrapper,_.map(this.items,(item)=>createElement('li',[createElement(itemWrapper,{
         props: {
           config: this.config.item,
           data: item
         }
-      }))
+      })]))
     )
   },
   data(){
