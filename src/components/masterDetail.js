@@ -19,7 +19,8 @@ Vue.component('yellow-master-detail', {
       }
     })
     return createElement(
-      'div', _.flatten([_([this.config.master]).flatten().map(createMaster).value(), _([this.config.detail]).flatten().map(createDetail).value()])
+      'div', _.flatten([_([this.config.master]).flatten().map(createMaster).value(), 
+      this.activeItem?_([this.config.detail]).flatten().map(createDetail).value():[]])
     )
   },
   data() {
