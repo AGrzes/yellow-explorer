@@ -2,9 +2,29 @@ import Vue from 'vue'
 import _ from 'lodash'
 Vue.component('yellow-toc', {
   render: function (createElement) {
+    const wrapper = 'ul'
+    const itemWrapper = `yellow-${_.kebabCase(this.config.item.type)}`
     return createElement(
-      `span`, 
+      wrapper,_.map(this.items,(item)=>createElement(itemWrapper,{
+        props: {
+          config: this.config.item,
+          data: item
+        }
+      }))
     )
+  },
+  data(){
+    let items
+    if (this.config.data.selector){
+      const filter = new Function('any','return '+this.config.data.selector.replace(/this/g,'any'))
+      items = _.filter(this.$root.data.model,filter)
+    }
+    if (this.config.data.order){
+      items = _.orderBy(items,this.config.data.order.field)
+    }
+    return {
+      items:items
+    }
   },
   props: {
     config: {
