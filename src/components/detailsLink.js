@@ -6,6 +6,9 @@ Vue.component('yellow-details-link', {
       `a`, {
         domProps: {
           innerHTML: this.config.html
+        },
+        on: {
+          click: () => this.$emit('activate', this.data)
         }
       }, this.data[this.config.label.field]
     )
@@ -18,6 +21,6 @@ Vue.component('yellow-details-link', {
     data: {
       type: Object,
       required: true
-    },    
+    },
   }
 })

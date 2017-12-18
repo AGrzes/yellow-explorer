@@ -7,6 +7,9 @@ Vue.component('yellow-master-detail', {
       props: {
         config: config,
         active: this.activeItem
+      },
+      on: {
+        activate: (active) => this.activeItem = active
       }
     })
     const createDetail = (config) => createElement(`yellow-${_.kebabCase(config.type)}`, {

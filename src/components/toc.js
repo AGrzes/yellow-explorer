@@ -9,6 +9,8 @@ Vue.component('yellow-toc', {
         props: {
           config: this.config.item,
           data: item
+        },on: {
+          activate: (event)=> this.$emit('activate',event)
         }
       })]))
     )
