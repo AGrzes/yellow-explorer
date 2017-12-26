@@ -6,11 +6,22 @@ import moment from 'moment'
 Vue.component('yellow-field', {
   render: function (createElement) {
     if (this.value){
-      return createElement('span',{domProps: {
-        innerHTML: this.value
-      }, class:{
-        badge: this.config.decoration == 'badge'
-      }})
+      if (this.config.label){
+        return createElement('dl', [createElement('dt', [this.config.label]), createElement('dd', {
+          domProps: {
+            innerHTML: this.value
+          },
+          class: {
+            badge: this.config.decoration == 'badge'
+          }
+        })])
+      } else {
+        return createElement('span',{domProps: {
+          innerHTML: this.value
+        }, class:{
+          badge: this.config.decoration == 'badge'
+        }})
+      }
     }
   },
   props: {

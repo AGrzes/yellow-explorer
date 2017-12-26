@@ -18,10 +18,19 @@ Vue.component('yellow-master-detail', {
         data: this.activeItem
       }
     })
-    return createElement(
-      'div', _.flatten([_([this.config.master]).flatten().map(createMaster).value(), 
-      this.activeItem?_([this.config.detail]).flatten().map(createDetail).value():[]])
-    )
+    const masterElement = createElement('div', {
+      class: ['col-xs-3']
+    }, _([this.config.master]).flatten().map(createMaster).value())
+    const elements = [masterElement]
+    if (this.activeItem) {
+      const detailElement = createElement('div', {
+        class: ['col-xs-9']
+      }, _([this.config.detail]).flatten().map(createDetail).value())
+      elements.push(detailElement)
+    }
+    return createElement('div', {
+      class: ['row']
+    }, elements)
   },
   data() {
     return {
