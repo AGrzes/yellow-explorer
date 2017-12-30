@@ -1,8 +1,20 @@
 import Vue from 'vue'
 import _ from 'lodash'
-import {markdown} from 'markdown'
+import marked from 'marked'
 import Handlebars from 'handlebars'
 import moment from 'moment'
+const renderer = new marked.Renderer()
+renderer.table = (header, body) => {
+  return `<table class="table">
+  <thead>
+    ${header}
+  </thead>
+  <tbody>
+    ${body}
+  </tbody>
+</table>
+`;
+}
 Vue.component('yellow-field', {
   render: function (createElement) {
     if (this.value){
@@ -41,7 +53,7 @@ Vue.component('yellow-field', {
         let formatted = ((value,format)=>{
           switch(this.config.format){
             case 'markdown': 
-            return markdown.toHTML(raw)
+            return marked(raw,{renderer})
             case 'date':
               return moment(raw).format(this.config.dateFormat)
             case 'string':
