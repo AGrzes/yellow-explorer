@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import _ from 'lodash'
-import {markdown} from 'markdown'
+import marked from 'marked'
 import Handlebars from 'handlebars'
 import moment from 'moment'
 Vue.component('yellow-field', {
@@ -41,7 +41,7 @@ Vue.component('yellow-field', {
         let formatted = ((value,format)=>{
           switch(this.config.format){
             case 'markdown': 
-            return markdown.toHTML(raw)
+            return marked(raw)
             case 'date':
               return moment(raw).format(this.config.dateFormat)
             case 'string':
