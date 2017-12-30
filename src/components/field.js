@@ -28,7 +28,11 @@ Vue.component('yellow-field', {
           }
         })])
       } else {
-        return createElement('span',{domProps: {
+        let wrapper = 'span'
+        if (_.includes(this.config.hint,'small')){
+          wrapper = 'small'
+        }
+        return createElement(wrapper,{domProps: {
           innerHTML: this.value
         }, class:{
           badge: this.config.decoration == 'badge'
@@ -50,17 +54,24 @@ Vue.component('yellow-field', {
     value: function () {
       const raw = this.data[this.config.field]
       if (raw){
-        let formatted = ((value,format)=>{
+        const formatValue = ((value)=>{
           switch(this.config.format){
             case 'markdown': 
-            return marked(raw,{renderer})
+            return marked(value,{renderer})
             case 'date':
-              return moment(raw).format(this.config.dateFormat)
+              return moment(value).format(this.config.dateFormat)
             case 'string':
             default:
-            return raw
+            return value
           }
-        })(raw,this.config.format)
+        })
+        let formatted
+        if(_.isArray(raw)){
+          formatted = _.map(raw,formatValue).join(', ')
+        }
+        else {
+          formatted = formatValue(raw)
+        }
         if (this.config.pattern){
           return Handlebars.compile(this.config.pattern)(formatted)
         }
