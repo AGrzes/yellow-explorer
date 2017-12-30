@@ -50,17 +50,24 @@ Vue.component('yellow-field', {
     value: function () {
       const raw = this.data[this.config.field]
       if (raw){
-        let formatted = ((value,format)=>{
+        const formatValue = ((value)=>{
           switch(this.config.format){
             case 'markdown': 
-            return marked(raw,{renderer})
+            return marked(value,{renderer})
             case 'date':
-              return moment(raw).format(this.config.dateFormat)
+              return moment(value).format(this.config.dateFormat)
             case 'string':
             default:
-            return raw
+            return value
           }
-        })(raw,this.config.format)
+        })
+        let formatted
+        if(_.isArray(raw)){
+          formatted = _.map(raw,formatValue).join(', ')
+        }
+        else {
+          formatted = formatValue(raw)
+        }
         if (this.config.pattern){
           return Handlebars.compile(this.config.pattern)(formatted)
         }
