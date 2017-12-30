@@ -28,7 +28,11 @@ Vue.component('yellow-field', {
           }
         })])
       } else {
-        return createElement('span',{domProps: {
+        let wrapper = 'span'
+        if (_.includes(this.config.hint,'small')){
+          wrapper = 'small'
+        }
+        return createElement(wrapper,{domProps: {
           innerHTML: this.value
         }, class:{
           badge: this.config.decoration == 'badge'
