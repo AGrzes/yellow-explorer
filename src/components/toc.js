@@ -4,7 +4,6 @@ import _ from 'lodash'
 const createTree = (createElement,nodes,wrapper,component)=>{
   wrapper = wrapper || 'ul'
   const itemWrapper = `yellow-${_.kebabCase(component.config.item.type)}`
-  console.log(nodes)
   return createElement(
     wrapper,_.map(nodes,(node)=>createElement('li',[createElement(itemWrapper,{
       props: {
