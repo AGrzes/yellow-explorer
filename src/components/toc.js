@@ -1,19 +1,24 @@
 import Vue from 'vue'
 import _ from 'lodash'
+
+const createTree = (createElement,nodes,wrapper,component)=>{
+  wrapper = wrapper || 'ul'
+  const itemWrapper = `yellow-${_.kebabCase(component.config.item.type)}`
+  console.log(nodes)
+  return createElement(
+    wrapper,_.map(nodes,(node)=>createElement('li',[createElement(itemWrapper,{
+      props: {
+        config: component.config.item,
+        data: node.node
+      },on: {
+        activate: (event)=> component.$emit('activate',event)
+      }
+    }),createTree(createElement,node.children,wrapper,component)]))
+  )
+}
 Vue.component('yellow-toc', {
   render: function (createElement) {
-    const wrapper = 'ul'
-    const itemWrapper = `yellow-${_.kebabCase(this.config.item.type)}`
-    return createElement(
-      wrapper,_.map(this.items,(item)=>createElement('li',[createElement(itemWrapper,{
-        props: {
-          config: this.config.item,
-          data: item
-        },on: {
-          activate: (event)=> this.$emit('activate',event)
-        }
-      })]))
-    )
+    return createTree(createElement,this.items,'ul',this)
   },
   data(){
     let items
@@ -23,6 +28,13 @@ Vue.component('yellow-toc', {
     }
     if (this.config.data.order){
       items = _.orderBy(items,this.config.data.order.field)
+    }
+    if (this.config.children){
+      const childConstructor = new Function('return '+this.config.children)
+      const toTree = (item)=>({node:item,children:_.map(childConstructor.apply(item),toTree)})
+      items = _.map(items,toTree)
+    } else {
+      items = _.map(items,(item)=>({node:item}))
     }
     return {
       items:items
