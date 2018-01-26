@@ -13,7 +13,6 @@ Vue.component('yellow-list-item', {
       }
     })
     if (this.slots.header || this.slots['sub-header']) {
-      console.log(this.slots['sub-header'])
       elements.push(createElement('h3', [
         ..._.flatMap(this.slots.header, (element)=>[createChild(element),' ']),
         createElement('small',_.flatMap(this.slots['sub-header'], (element)=>[createChild(element),' ']))]))
