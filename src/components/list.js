@@ -21,19 +21,19 @@ dataPromise.then((data)=>{
         }))
       )
     },
-    data(){
-      let items
-      if (this.config.list.selector){
-        const filter = new Function('parent','return '+this.config.list.selector)
-        items = _.filter(data.model,(item)=>{
-          return filter.call(item,this.data)
-        })
-      }
-      if (this.config.list.order){
-        items = _.orderBy(items,this.config.list.order.field)
-      }
-      return {
-        items:items
+    computed: {
+      items() {
+        let items
+        if (this.config.list.selector) {
+          const filter = new Function('parent', 'return ' + this.config.list.selector)
+          items = _.filter(data.model, (item) => {
+            return filter.call(item, this.data)
+          })
+        }
+        if (this.config.list.order) {
+          items = _.orderBy(items, this.config.list.order.field)
+        }
+        return items
       }
     },
     props: {
